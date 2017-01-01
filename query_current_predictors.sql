@@ -4,6 +4,15 @@ SELECT
 	fd_current.salary,
 	fd_current.team,
 	fd_current.opponent,
+	fd_current.fppg,
+	AVG(individual_stats.individual_defense_ast) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_ast,
+	AVG(individual_stats.individual_defense_ffum) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_ffum,
+	AVG(individual_stats.individual_defense_fgblk) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_fgblk,
+	AVG(individual_stats.individual_defense_frec) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_frec,
+	AVG(individual_stats.individual_defense_frec_tds) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_frec_tds,
+	AVG(individual_stats.individual_defense_frec_yds) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_frec_yds,
+	AVG(individual_stats.individual_defense_int) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_int,
+	AVG(individual_stats.individual_defense_int_tds) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_int_tds,
 	AVG(individual_stats.individual_defense_int_yds) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_int_yds,
 	AVG(individual_stats.individual_defense_misc_tds) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_misc_tds,
 	AVG(individual_stats.individual_defense_misc_yds) OVER(PARTITION BY individual_stats.player_id ORDER BY individual_stats.start_time ASC ROWS BETWEEN 9 PRECEDING AND 0 PRECEDING) AS rolling_ind_individual_defense_misc_yds,
@@ -293,6 +302,6 @@ INNER JOIN defense_game_averages ON defense_game_averages.team_id = fd_current.o
       AND defense_game_averages.season_type = individual_stats.season_type      
 WHERE individual_stats.season_year = {0}
       AND individual_stats.week = {1}
-      AND individual_stats.season_type = {2}
+      AND individual_stats.season_type = '{2}'
 ORDER BY fd_current.position, fd_current.salary DESC;
 	

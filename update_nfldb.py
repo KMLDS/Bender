@@ -6,7 +6,8 @@ conn_string = "host='localhost' dbname='nfldb' user='nfldb' password='nfldb'"
 conn = psycopg2.connect(conn_string)
 cursor = conn.cursor()
 
-### the NFL data sometimes includes JAX instead of JAC and ruins everything, this allows JAX to be added
+# the NFL data sometimes includes JAX instead of JAC and ruins everything,
+#this allows JAX to be added
 include_jax_string = "INSERT INTO team VALUES('JAX', 'Jacksonville', 'Jaguars');"
 cursor.execute(include_jax_string)
 conn.commit()
