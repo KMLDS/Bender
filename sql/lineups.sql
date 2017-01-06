@@ -63,15 +63,15 @@ WHERE qb.POSITION = 'QB'
       AND te.POSITION = 'TE'
       AND k.POSITION = 'K'
       AND d.POSITION = 'D'
-      AND qb.predicted_score > 17
-      AND rb1.predicted_score > 18
-      AND rb2.predicted_score > 15
-      AND wr1.predicted_score > 16
-      AND wr2.predicted_score > 15
-      AND wr3.predicted_score > 14
-      AND te.predicted_score > 10
+      AND qb.predicted_score > 12
+      AND rb1.predicted_score > 10
+      AND rb2.predicted_score > 8
+      AND wr1.predicted_score > 10
+      AND wr2.predicted_score > 9
+      AND wr3.predicted_score > 7
+      AND te.predicted_score > 6
       AND k.predicted_score > 8
-      AND d.fppg > 8
-      AND (qb.predicted_score + rb1.predicted_score + rb2.predicted_score + wr1.predicted_score + wr2.predicted_score + wr3.predicted_score + te.predicted_score + k.predicted_score + d.fppg) > 130
+      AND d.fppg > 7
+      AND (qb.predicted_score + rb1.predicted_score + rb2.predicted_score + wr1.predicted_score + wr2.predicted_score + wr3.predicted_score + te.predicted_score + k.predicted_score + d.fppg) > 115
       AND (qb.salary + rb1.salary + rb2.salary + wr1.salary + wr2.salary + wr3.salary + te.salary + k.salary + d.salary) <= 60000     
 ORDER BY total_score DESC, total_salary DESC;

@@ -31,7 +31,7 @@ def write_fd_table(df):
 
 
 def get_current_predictors(season_year, week, season_type):
-    query_file = open('query_current_predictors.sql', 'r')
+    query_file = open('./sql/query_current_predictors.sql', 'r')
     query_string = query_file.read()
     query_string = re.sub(r'[\n\t]', ' ', query_string)
     engine = create_engine("postgresql://nfldb:nfldb@localhost:5432")
@@ -50,7 +50,7 @@ def random_forest_predict(position, df, predict_df):
                   'max_features': ['auto', 'sqrt']}
 
     gbr = GradientBoostingRegressor()
-    estimator = RandomizedSearchCV(estimator=gbr, param_distributions=param_dist, scoring='r2', n_jobs=-1, n_iter=600)
+    estimator = RandomizedSearchCV(estimator=gbr, param_distributions=param_dist, scoring='r2', n_jobs=4, n_iter=600) # change back to n_jobs=-1
     estimator.fit(X, y)
     print(position + ':')
     print('Best score: ' + str(estimator.best_score_))
@@ -64,6 +64,7 @@ def random_forest_predict(position, df, predict_df):
     print('Training data shape: ' + str(X.shape))
     print('Predction data shape: ' + str(predict_X.shape) + '\n')
 
+    return estimator
 
 # def ridge_predict(position, df=df, predict_df=predict_df):
 #     X = df[df.position == position]
