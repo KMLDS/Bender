@@ -35,7 +35,9 @@ estimator_dict = {}
 for position in positions:
     estimator_dict[position] = random_forest_predict(position, df, predict_df)
 
-pickle.dump(estimator_dict, 'estimators.pkl')
+with open('estimators.pkl', 'wb') as estimator_file:
+    pickle.dump(estimator_dict, estimator_file)
+
 relevant_cols = ['full_name', 'position', 'salary', 'predicted_score']
 predict_df = predict_df[relevant_cols]
 predict_df.to_sql('predicted_scores', con=engine, if_exists='replace')
